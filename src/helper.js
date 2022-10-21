@@ -10,7 +10,6 @@ export const createNewCategory = () => {
   const newCategory = {
     id,
     categoryName: "New Category",
-    title: "Title Name",
     categoryFields: [createNewCategoryField()],
   };
   return newCategory;
@@ -31,4 +30,14 @@ export const prepareNewCategoryFieldsData = (category, categoryData) => {
   };
 
   return { indexToUpdate, updateMainCategory };
+};
+
+export const getCategoryIndex = (category, categoryId) => {
+  return category.findIndex((element) => element.id === categoryId);
+};
+
+export const getCategoryFieldIndex = (categoryField, categoryFieldId) => {
+  return categoryField.findIndex(
+    (categoryFieldItem) => categoryFieldItem.categoryId === categoryFieldId
+  );
 };

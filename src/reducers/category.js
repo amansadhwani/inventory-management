@@ -33,54 +33,67 @@ export default function (state = initialState, action) {
     }
 
     case DELETE_CATEGORY: {
-      const deleteCategory = [...state.category].filter((item) => {
-        return item.id !== payload;
-      });
       return {
         ...state,
-        category: deleteCategory,
+        category: state.category.filter((item) => {
+          return item.id !== payload;
+        }),
       };
     }
 
     case UPDATE_CATEGORY: {
-      const updatedData = [...state.category];
-      updatedData[payload.index][payload.name] = payload.value;
       return {
         ...state,
-        category: updatedData,
+        category: state.category.map((item) =>
+          item.id === payload.id
+            ? { ...item, [payload.name]: payload.value }
+            : item
+        ),
       };
     }
 
     case ADD_NEW_CATEGORY_FIELD: {
-      const addNewCategoryField = [...state.category];
-      addNewCategoryField[payload.index].categoryFields.push(
-        createNewCategoryField(payload.type)
-      );
+      const newFieldData = createNewCategoryField(payload.type);
       return {
         ...state,
-        category: addNewCategoryField,
+        category: state.category.map((item) =>
+          item.id === payload.categoryId
+            ? {
+                ...item,
+                categoryFields: [...item.categoryFields, newFieldData],
+              }
+            : item
+        ),
       };
     }
 
     case UPDATE_CATEGORY_FIELD: {
-      const updatedCategoryFieldData = [...state.category];
-      updatedCategoryFieldData[payload.categoryIndex].categoryFields[
-        payload.categoryFieldIndex
-      ] = payload.data;
       return {
         ...state,
-        category: updatedCategoryFieldData,
+        category: state.category.map((element) => {
+          return {
+            ...element,
+            categoryFields: element.categoryFields.map((subElement) =>
+              subElement.categoryId === payload.categoryFieldId
+                ? { ...subElement, [payload.name]: payload.value }
+                : subElement
+            ),
+          };
+        }),
       };
     }
 
     case DELETE_CATEGORY_FIELD: {
-      const deleteCategoryField = [...state.category];
-      deleteCategoryField[payload.categoryIndex].categoryFields =
-        payload.updateDeletedData;
-
       return {
         ...state,
-        category: deleteCategoryField,
+        category: state.category.map((element) => {
+          return {
+            ...element,
+            categoryFields: element.categoryFields.filter(
+              (subElement) => subElement.categoryId !== payload.categoryFieldId
+            ),
+          };
+        }),
       };
     }
 

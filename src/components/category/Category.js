@@ -1,29 +1,38 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import AddCategory from "./AddCategory";
 import CategoryBody from "./CategoryBody";
 import CategoryHeader from "./CategoryHeader";
 import CateogryFooter from "./CateogryFooter";
+import { ADD_NEW_CATEGORY } from "../../actions/types";
+import { useDispatch } from "react-redux";
+import { Button } from "../formElements/Button";
 
 const Category = () => {
   const { category } = useSelector((state) => state.category);
-
-  useEffect(() => {
-    //let checkData=localStorage.getItem("data",)
-  }, []);
+  const dispatch = useDispatch();
+  const addNewCategory = () => {
+    dispatch({
+      type: ADD_NEW_CATEGORY,
+    });
+  };
 
   return (
     <>
       <div className="container-fluid mt-3">
         <div className="container mt-3">
-          <AddCategory />
+          <Button
+            type="button"
+            onClick={addNewCategory}
+            name="Add Category"
+            className="btn btn-primary mb-3"
+          />
           <div className="row">
             {category.map((item, index) => (
               <div className="col-12 col-md-4 mb-3" key={item.id}>
                 <div className="card">
                   <CategoryHeader id={item.id} titleName={item.categoryName} />
-                  <CategoryBody item={item} index={index} />
-                  <CateogryFooter index={index} />
+                  <CategoryBody item={item} />
+                  <CateogryFooter categoryId={item.id} />
                 </div>
               </div>
             ))}

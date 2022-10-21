@@ -6,14 +6,14 @@ import {
 } from "../../actions/types";
 import { FIELD_TYPES } from "../../constants";
 
-const CategoryForm = ({ categoryFields, categoryIndex }) => {
+const CategoryForm = ({ categoryFields, categoryId }) => {
   const dispatch = useDispatch();
-  const updateCategoryField = (name, value, index, item) => {
-    const data = { ...item, [name]: value };
+  const updateCategoryField = (name, value, categoryFieldId) => {
     const prepData = {
-      categoryIndex,
-      categoryFieldIndex: index,
-      data,
+      categoryId,
+      categoryFieldId,
+      name,
+      value,
     };
     dispatch({
       type: UPDATE_CATEGORY_FIELD,
@@ -21,18 +21,15 @@ const CategoryForm = ({ categoryFields, categoryIndex }) => {
     });
   };
 
-  const deleteCategoryField = (categoryId) => {
-    let updateDeletedData = categoryFields.filter((item) => {
-      return item.categoryId !== categoryId;
-    });
+  const deleteCategoryField = (categoryFieldId) => {
     dispatch({
       type: DELETE_CATEGORY_FIELD,
-      payload: { categoryIndex, updateDeletedData },
+      payload: { categoryFieldId },
     });
   };
   return (
     <>
-      {categoryFields.map((item, index) => (
+      {categoryFields.map((item) => (
         <div className="input-group mb-3" key={item.categoryId}>
           <input
             name="name"
@@ -40,7 +37,12 @@ const CategoryForm = ({ categoryFields, categoryIndex }) => {
             className="form-control"
             value={item.name}
             onChange={(e) =>
-              updateCategoryField(e.target.name, e.target.value, index, item)
+              updateCategoryField(
+                e.target.name,
+                e.target.value,
+                item.categoryId,
+                item
+              )
             }
           />
           <button
@@ -57,7 +59,12 @@ const CategoryForm = ({ categoryFields, categoryIndex }) => {
                 key={keyIndex}
                 className="dropdown-item"
                 onClick={() =>
-                  updateCategoryField("type", itemType.type, index, item)
+                  updateCategoryField(
+                    "type",
+                    itemType.type,
+                    item.categoryId,
+                    item
+                  )
                 }
               >
                 {itemType.name}

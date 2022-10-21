@@ -4,11 +4,11 @@ import { UPDATE_CATEGORY } from "../../actions/types";
 import { Input } from "../formElements/Input";
 import CategoryForm from "./CategoryForm";
 
-const CategoryBody = ({ item, index }) => {
+const CategoryBody = ({ item }) => {
   const dispatch = useDispatch();
   const updateCategory = (e) => {
     const prepData = {
-      index: index,
+      id: item.id,
       name: e.target.name,
       value: e.target.value,
     };
@@ -33,7 +33,7 @@ const CategoryBody = ({ item, index }) => {
         </div>
         <div className="mb-3">
           <label htmlFor="title">Title Field</label>
-          <select className="form-select mt-3">
+          <select className="form-select mt-3" name="">
             {item.categoryFields.map((item, index) => (
               <option key={index} value={item.type}>
                 {item.name}
@@ -43,7 +43,7 @@ const CategoryBody = ({ item, index }) => {
         </div>
         <CategoryForm
           categoryFields={item.categoryFields}
-          categoryIndex={index}
+          categoryId={item.id}
         />
       </form>
     </div>
