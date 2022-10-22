@@ -27,7 +27,7 @@ const Category = () => {
             className="btn btn-primary mb-3"
           />
           <div className="row">
-            {category.map((item, index) => (
+            {category.map((item) => (
               <div className="col-12 col-md-4 mb-3" key={item.id}>
                 <div className="card">
                   <CategoryHeader id={item.id} titleName={item.categoryName} />

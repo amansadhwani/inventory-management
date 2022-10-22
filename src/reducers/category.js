@@ -1,14 +1,19 @@
 import {
-  GET_CATEGORY,
+  ADD_CATEGORY,
   ADD_NEW_CATEGORY,
   UPDATE_CATEGORY,
   DELETE_CATEGORY,
   ADD_NEW_CATEGORY_FIELD,
   UPDATE_CATEGORY_FIELD,
   DELETE_CATEGORY_FIELD,
-  ADD_NEW_CATEGORY_FIELDS_ITEM,
+  ADD_NEW_CATEGORY_ITEM,
+  DELETE_CATEGORY_ITEM,
 } from "../actions/types";
-import { createNewCategory, createNewCategoryField } from "../helper";
+import {
+  createCategoryItemsData,
+  createNewCategory,
+  createNewCategoryField,
+} from "../helper";
 
 const initialState = {
   category: [],
@@ -18,7 +23,7 @@ const initialState = {
 export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
-    case GET_CATEGORY: {
+    case ADD_CATEGORY: {
       return {
         ...state,
         category: payload,
@@ -53,14 +58,14 @@ export default function (state = initialState, action) {
     }
 
     case ADD_NEW_CATEGORY_FIELD: {
-      const newFieldData = createNewCategoryField(payload.type);
+      const categoryFieldData = createNewCategoryField(payload.type);
       return {
         ...state,
         category: state.category.map((item) =>
           item.id === payload.categoryId
             ? {
                 ...item,
-                categoryFields: [...item.categoryFields, newFieldData],
+                categoryFields: [...item.categoryFields, categoryFieldData],
               }
             : item
         ),
@@ -97,12 +102,33 @@ export default function (state = initialState, action) {
       };
     }
 
-    case ADD_NEW_CATEGORY_FIELDS_ITEM: {
-      const updatedData = [...state.category];
-      updatedData[payload.indexToUpdate] = payload.updateMainCategory;
+    case ADD_NEW_CATEGORY_ITEM: {
+      const categoryFieldData = createCategoryItemsData();
       return {
         ...state,
-        category: updatedData,
+        category: state.category.map((item) =>
+          item.id === payload.id
+            ? {
+                ...item,
+                categoryItems: [...item.categoryItems, categoryFieldData],
+              }
+            : item
+        ),
+      };
+    }
+    case DELETE_CATEGORY_ITEM: {
+      return {
+        ...state,
+        category: state.category.map((item) =>
+          item.id === payload.id
+            ? {
+                ...item,
+                categoryItems: item.categoryItems.filter(
+                  (catItem) => catItem.categoryItemID !== payload.categoryItemID
+                ),
+              }
+            : item
+        ),
       };
     }
 

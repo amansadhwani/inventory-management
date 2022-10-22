@@ -11,6 +11,7 @@ export const createNewCategory = () => {
     id,
     categoryName: "New Category",
     categoryFields: [createNewCategoryField()],
+    categoryItems: [],
   };
   return newCategory;
 };
@@ -40,4 +41,9 @@ export const getCategoryFieldIndex = (categoryField, categoryFieldId) => {
   return categoryField.findIndex(
     (categoryFieldItem) => categoryFieldItem.categoryId === categoryFieldId
   );
+};
+
+export const createCategoryItemsData = () => {
+  const categoryItemID = uuid();
+  return { categoryItemID };
 };
