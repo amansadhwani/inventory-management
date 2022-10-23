@@ -6,11 +6,11 @@ import {
 } from "../../actions/types";
 import { FIELD_TYPES } from "../../constants";
 
-const CategoryForm = ({ categoryFields, categoryId }) => {
+const CategoryForm = ({ categoryFields, categoryID }) => {
   const dispatch = useDispatch();
   const updateCategoryField = (name, value, categoryFieldId) => {
     const prepData = {
-      categoryId,
+      categoryID,
       categoryFieldId,
       name,
       value,
@@ -40,7 +40,7 @@ const CategoryForm = ({ categoryFields, categoryId }) => {
               updateCategoryField(
                 e.target.name,
                 e.target.value,
-                item.categoryId,
+                item.categoryID,
                 item
               )
             }
@@ -62,7 +62,7 @@ const CategoryForm = ({ categoryFields, categoryId }) => {
                   updateCategoryField(
                     "type",
                     itemType.type,
-                    item.categoryId,
+                    item.categoryID,
                     item
                   )
                 }
@@ -73,7 +73,7 @@ const CategoryForm = ({ categoryFields, categoryId }) => {
             <li
               key="delete-category-id"
               className="dropdown-item"
-              onClick={() => deleteCategoryField(item.categoryId)}
+              onClick={() => deleteCategoryField(item.categoryID)}
             >
               Delete <i aria-hidden="true" className="fa fa-trash"></i>
             </li>

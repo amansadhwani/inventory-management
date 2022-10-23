@@ -32,7 +32,7 @@ const Category = () => {
                 <div className="card">
                   <CategoryHeader id={item.id} titleName={item.categoryName} />
                   <CategoryBody item={item} />
-                  <CateogryFooter categoryId={item.id} />
+                  <CateogryFooter categoryID={item.id} />
                 </div>
               </div>
             ))}

@@ -1,8 +1,8 @@
 import { v4 as uuid } from "uuid";
 
 export const createNewCategoryField = (type = "text") => {
-  const categoryId = uuid();
-  return { name: "Title", type, categoryId };
+  const categoryID = uuid();
+  return { name: "Title", type, categoryID };
 };
 
 export const createNewCategory = () => {
@@ -33,17 +33,31 @@ export const prepareNewCategoryFieldsData = (category, categoryData) => {
   return { indexToUpdate, updateMainCategory };
 };
 
-export const getCategoryIndex = (category, categoryId) => {
-  return category.findIndex((element) => element.id === categoryId);
+// export const getCategoryIndex = (category, categoryId) => {
+//   return category.findIndex((element) => element.id === categoryId);
+// };
+
+// export const getCategoryFieldIndex = (categoryField, categoryFieldId) => {
+//   return categoryField.findIndex(
+//     (categoryFieldItem) => categoryFieldItem.categoryId === categoryFieldId
+//   );
+// };
+
+export const prepareDataForCategorySubItems = (categoryFields) => {
+  const prepareData = categoryFields.map((item) => {
+    return {
+      categorySubItemsID: uuid(),
+      value: "",
+      label: item.name,
+      type: item.type,
+      categoryLinkID: item.categoryID,
+    };
+  });
+  return prepareData;
 };
 
-export const getCategoryFieldIndex = (categoryField, categoryFieldId) => {
-  return categoryField.findIndex(
-    (categoryFieldItem) => categoryFieldItem.categoryId === categoryFieldId
-  );
-};
-
-export const createCategoryItemsData = () => {
+export const createCategoryItemsData = (categoryFields) => {
   const categoryItemID = uuid();
-  return { categoryItemID };
+  const categorySubItems = prepareDataForCategorySubItems(categoryFields);
+  return { categoryItemID, categorySubItems };
 };

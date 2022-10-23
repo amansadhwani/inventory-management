@@ -8,6 +8,7 @@ import {
   DELETE_CATEGORY_FIELD,
   ADD_NEW_CATEGORY_ITEM,
   DELETE_CATEGORY_ITEM,
+  UPDATE_CATEGORY_SUB_ITEM,
 } from "../actions/types";
 import {
   createCategoryItemsData,
@@ -62,7 +63,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         category: state.category.map((item) =>
-          item.id === payload.categoryId
+          item.id === payload.categoryID
             ? {
                 ...item,
                 categoryFields: [...item.categoryFields, categoryFieldData],
@@ -79,7 +80,7 @@ export default function (state = initialState, action) {
           return {
             ...element,
             categoryFields: element.categoryFields.map((subElement) =>
-              subElement.categoryId === payload.categoryFieldId
+              subElement.categoryID === payload.categoryFieldId
                 ? { ...subElement, [payload.name]: payload.value }
                 : subElement
             ),
@@ -95,7 +96,7 @@ export default function (state = initialState, action) {
           return {
             ...element,
             categoryFields: element.categoryFields.filter(
-              (subElement) => subElement.categoryId !== payload.categoryFieldId
+              (subElement) => subElement.categoryID !== payload.categoryFieldId
             ),
           };
         }),
@@ -103,7 +104,7 @@ export default function (state = initialState, action) {
     }
 
     case ADD_NEW_CATEGORY_ITEM: {
-      const categoryFieldData = createCategoryItemsData();
+      const categoryFieldData = createCategoryItemsData(payload.categoryFields);
       return {
         ...state,
         category: state.category.map((item) =>
@@ -117,6 +118,23 @@ export default function (state = initialState, action) {
       };
     }
     case DELETE_CATEGORY_ITEM: {
+      return {
+        ...state,
+        category: state.category.map((item) =>
+          item.id === payload.id
+            ? {
+                ...item,
+                categoryItems: item.categoryItems.filter(
+                  (catItem) => catItem.categoryItemID !== payload.categoryItemID
+                ),
+              }
+            : item
+        ),
+      };
+    }
+
+    case UPDATE_CATEGORY_SUB_ITEM: {
+      debugger;
       return {
         ...state,
         category: state.category.map((item) =>

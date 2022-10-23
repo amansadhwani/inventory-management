@@ -3,12 +3,12 @@ import { FIELD_TYPES } from "../../constants";
 import { useDispatch } from "react-redux";
 import { ADD_NEW_CATEGORY_FIELD } from "../../actions/types";
 
-const CateogryFooter = ({ categoryId }) => {
+const CateogryFooter = ({ categoryID }) => {
   const dispatch = useDispatch();
   const addCategoryField = (type) => {
     dispatch({
       type: ADD_NEW_CATEGORY_FIELD,
-      payload: { categoryId, type },
+      payload: { categoryID, type },
     });
   };
 

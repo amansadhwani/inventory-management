@@ -43,7 +43,7 @@ const CategoryBody = ({ item }) => {
         </div>
         <CategoryForm
           categoryFields={item.categoryFields}
-          categoryId={item.id}
+          categoryID={item.id}
         />
       </form>
     </div>

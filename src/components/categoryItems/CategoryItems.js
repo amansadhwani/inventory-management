@@ -3,12 +3,13 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import CategoryFieldsHeader from "./CategoryFieldsHeader";
-import CategoryFieldsBody from "./CategoryFieldsBody";
+import CategoryItemsBody from "./CategoryItemsBody";
 import AddCategoryItem from "./AddCategoryItem";
 
 import {
   ADD_NEW_CATEGORY_ITEM,
   DELETE_CATEGORY_ITEM,
+  UPDATE_CATEGORY_SUB_ITEM,
 } from "../../actions/types";
 
 const CategoryItems = () => {
@@ -18,11 +19,9 @@ const CategoryItems = () => {
   let { id } = useParams();
 
   const addNewCategoryItem = () => {
-    // const data = prepareNewCategoryFieldsData(category, categoryData);
-    //const data = prepareCategoryItemsData();
     dispatch({
       type: ADD_NEW_CATEGORY_ITEM,
-      payload: { id },
+      payload: { id, categoryFields: categoryData.categoryFields },
     });
   };
 
@@ -30,6 +29,18 @@ const CategoryItems = () => {
     dispatch({
       type: DELETE_CATEGORY_ITEM,
       payload: { id, categoryItemID },
+    });
+  };
+
+  const updateCategorySubItems = (e, categorySubItemsID) => {
+    const prepData = {
+      id,
+      categorySubItemsID,
+      [e.target.name]: e.target.value,
+    };
+    dispatch({
+      type: UPDATE_CATEGORY_SUB_ITEM,
+      payload: prepData,
     });
   };
 
@@ -59,7 +70,10 @@ const CategoryItems = () => {
                       deleteCategoryItem(item.categoryItemID)
                     }
                   />
-                  <CategoryFieldsBody item={item} />
+                  <CategoryItemsBody
+                    categorySubItems={item.categorySubItems}
+                    updateCategorySubItems={updateCategorySubItems}
+                  />
                 </div>
               </div>
             ))}
