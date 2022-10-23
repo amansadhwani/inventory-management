@@ -1,25 +1,34 @@
 import React from "react";
 import { Input } from "../formElements/Input";
 
-const CategoryItemsBody = ({ categorySubItems, updateCategorySubItems }) => {
+const CategoryItemsBody = ({
+  categorySubItems,
+  categoryItemID,
+  updateCategorySubItems,
+}) => {
   return (
     <div className="card-body">
-      <form autoComplete="off"></form>
-      {categorySubItems.map((subItem) => (
-        <div className="mb-3 mt-3" key={subItem.categorySubItemsID}>
-          <label htmlFor={subItem.label}>{subItem.label}</label>
-          <Input
-            type={subItem.type}
-            className="form-control"
-            placeholder={`Enter ${subItem.label}`}
-            value={subItem.value}
-            onChange={(e) =>
-              updateCategorySubItems(e, subItem.categorySubItemsID)
-            }
-            name={"value"}
-          />
-        </div>
-      ))}
+      <form autoComplete="off">
+        {categorySubItems.map((subItem) => (
+          <div className="mb-3 mt-3" key={subItem.categorySubItemsID}>
+            <label htmlFor={subItem.name}>{subItem.name}</label>
+            <Input
+              type={subItem.type}
+              className="form-control"
+              placeholder={`Enter ${subItem.name}`}
+              value={subItem.value}
+              onChange={(e) =>
+                updateCategorySubItems(
+                  e,
+                  subItem.categorySubItemsID,
+                  categoryItemID
+                )
+              }
+              name={"value"}
+            />
+          </div>
+        ))}
+      </form>
     </div>
   );
 };

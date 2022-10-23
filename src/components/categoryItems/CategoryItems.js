@@ -32,10 +32,11 @@ const CategoryItems = () => {
     });
   };
 
-  const updateCategorySubItems = (e, categorySubItemsID) => {
+  const updateCategorySubItems = (e, categorySubItemsID, categoryItemID) => {
     const prepData = {
       id,
       categorySubItemsID,
+      categoryItemID,
       [e.target.name]: e.target.value,
     };
     dispatch({
@@ -73,6 +74,7 @@ const CategoryItems = () => {
                   <CategoryItemsBody
                     categorySubItems={item.categorySubItems}
                     updateCategorySubItems={updateCategorySubItems}
+                    categoryItemID={item.categoryItemID}
                   />
                 </div>
               </div>

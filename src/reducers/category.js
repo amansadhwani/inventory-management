@@ -14,6 +14,7 @@ import {
   createCategoryItemsData,
   createNewCategory,
   createNewCategoryField,
+  createNewCategoryItem,
 } from "../helper";
 
 const initialState = {
@@ -67,6 +68,15 @@ export default function (state = initialState, action) {
             ? {
                 ...item,
                 categoryFields: [...item.categoryFields, categoryFieldData],
+                categoryItems: item.categoryItems.map((catItem) => {
+                  return {
+                    ...catItem,
+                    categorySubItems: [
+                      ...catItem.categorySubItems,
+                      createNewCategoryItem(categoryFieldData),
+                    ],
+                  };
+                }),
               }
             : item
         ),
@@ -76,16 +86,29 @@ export default function (state = initialState, action) {
     case UPDATE_CATEGORY_FIELD: {
       return {
         ...state,
-        category: state.category.map((element) => {
-          return {
-            ...element,
-            categoryFields: element.categoryFields.map((subElement) =>
-              subElement.categoryID === payload.categoryFieldId
-                ? { ...subElement, [payload.name]: payload.value }
-                : subElement
-            ),
-          };
-        }),
+        category: state.category.map((element) =>
+          element.id === payload.categoryID
+            ? {
+                ...element,
+                categoryFields: element.categoryFields.map((subElement) =>
+                  subElement.categoryID === payload.categoryFieldId
+                    ? { ...subElement, [payload.name]: payload.value }
+                    : subElement
+                ),
+                categoryItems: element.categoryItems.map((catItem) => {
+                  return {
+                    ...catItem,
+                    categorySubItems: catItem.categorySubItems.map(
+                      (subCatItem) =>
+                        subCatItem.categoryLinkID === payload.categoryFieldId
+                          ? { ...subCatItem, [payload.name]: payload.value }
+                          : subCatItem
+                    ),
+                  };
+                }),
+              }
+            : element
+        ),
       };
     }
 
@@ -98,6 +121,15 @@ export default function (state = initialState, action) {
             categoryFields: element.categoryFields.filter(
               (subElement) => subElement.categoryID !== payload.categoryFieldId
             ),
+            categoryItems: element.categoryItems.map((catItem) => {
+              return {
+                ...catItem,
+                categorySubItems: catItem.categorySubItems.filter(
+                  (subCatItem) =>
+                    subCatItem.categoryLinkID !== payload.categoryFieldId
+                ),
+              };
+            }),
           };
         }),
       };
@@ -134,15 +166,25 @@ export default function (state = initialState, action) {
     }
 
     case UPDATE_CATEGORY_SUB_ITEM: {
-      debugger;
       return {
         ...state,
         category: state.category.map((item) =>
           item.id === payload.id
             ? {
                 ...item,
-                categoryItems: item.categoryItems.filter(
-                  (catItem) => catItem.categoryItemID !== payload.categoryItemID
+                categoryItems: item.categoryItems.map((catItem) =>
+                  catItem.categoryItemID === payload.categoryItemID
+                    ? {
+                        ...catItem,
+                        categorySubItems: catItem.categorySubItems.map(
+                          (subCatItem) =>
+                            subCatItem.categorySubItemsID ===
+                            payload.categorySubItemsID
+                              ? { ...subCatItem, value: payload.value }
+                              : subCatItem
+                        ),
+                      }
+                    : catItem
                 ),
               }
             : item
