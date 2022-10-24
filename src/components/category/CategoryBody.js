@@ -17,6 +17,7 @@ const CategoryBody = ({ item }) => {
       payload: prepData,
     });
   };
+
   return (
     <div className="card-body">
       <form autoComplete="off">
@@ -32,12 +33,22 @@ const CategoryBody = ({ item }) => {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="title">Title Field</label>
-          <select className="form-select mt-3" name="">
-            {item.categoryFields.map((item, index) => (
-              <option key={index} value={item.type}>
-                {item.name}
-              </option>
+          <label htmlFor="title">Title</label>
+          <select
+            className="form-select mt-3"
+            name="titleID"
+            onChange={updateCategory}
+          >
+            {item.categoryFields.map((element, index) => (
+              <>
+                <option
+                  key={index}
+                  value={element.categoryID}
+                  selected={item.titleID === element.categoryID}
+                >
+                  {element.name}
+                </option>
+              </>
             ))}
           </select>
         </div>

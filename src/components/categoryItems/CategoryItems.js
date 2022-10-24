@@ -11,6 +11,7 @@ import {
   DELETE_CATEGORY_ITEM,
   UPDATE_CATEGORY_SUB_ITEM,
 } from "../../actions/types";
+import { getTitleName } from "../../helper";
 
 const CategoryItems = () => {
   const dispatch = useDispatch();
@@ -32,13 +33,19 @@ const CategoryItems = () => {
     });
   };
 
-  const updateCategorySubItems = (e, categorySubItemsID, categoryItemID) => {
+  const updateCategorySubItems = (
+    e,
+    type,
+    categorySubItemsID,
+    categoryItemID
+  ) => {
     const prepData = {
       id,
       categorySubItemsID,
       categoryItemID,
-      [e.target.name]: e.target.value,
+      [e.target.name]: type !== "checkbox" ? e.target.value : e.target.checked,
     };
+
     dispatch({
       type: UPDATE_CATEGORY_SUB_ITEM,
       payload: prepData,
@@ -55,7 +62,7 @@ const CategoryItems = () => {
   }, [id, category]);
 
   return (
-    <div>
+    <>
       <h1>{categoryData?.categoryName}</h1>
       <div className="container-fluid mt-3">
         <AddCategoryItem addNewCategoryItem={addNewCategoryItem} />
@@ -66,7 +73,7 @@ const CategoryItems = () => {
                 <div className="card">
                   <CategoryFieldsHeader
                     id={item.id}
-                    titleName={"AMAN"}
+                    titleName={getTitleName(item, categoryData)}
                     deleteCategoryItem={() =>
                       deleteCategoryItem(item.categoryItemID)
                     }
@@ -82,7 +89,7 @@ const CategoryItems = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

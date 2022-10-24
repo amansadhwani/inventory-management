@@ -20,6 +20,7 @@ export const createNewCategory = () => {
   const newCategory = {
     id,
     categoryName: "New Category",
+    titleID: "",
     categoryFields: [createNewCategoryField()],
     categoryItems: [],
   };
@@ -37,4 +38,11 @@ export const createCategoryItemsData = (categoryFields) => {
   const categoryItemID = uuid();
   const categorySubItems = prepareDataForCategorySubItems(categoryFields);
   return { categoryItemID, categorySubItems };
+};
+
+export const getTitleName = (item, categoryData) => {
+  const extractTitleName = item.categorySubItems.find(
+    (element) => element.categoryLinkID === categoryData.titleID
+  );
+  return extractTitleName?.value;
 };

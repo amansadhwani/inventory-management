@@ -13,13 +13,15 @@ const CategoryItemsBody = ({
           <div className="mb-3 mt-3" key={subItem.categorySubItemsID}>
             <label htmlFor={subItem.name}>{subItem.name}</label>
             <Input
+              //defaultChecked={subItem.value}
               type={subItem.type}
-              className="form-control"
+              className={subItem.type !== "checkbox" ? "form-control" : ""}
               placeholder={`Enter ${subItem.name}`}
               value={subItem.value}
               onChange={(e) =>
                 updateCategorySubItems(
                   e,
+                  subItem.type,
                   subItem.categorySubItemsID,
                   categoryItemID
                 )
