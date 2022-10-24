@@ -15,6 +15,7 @@ import {
   createNewCategory,
   createNewCategoryField,
   createNewCategoryItem,
+  setDefaultTitle,
 } from "../helper";
 
 const initialState = {
@@ -124,7 +125,10 @@ export default function (state = initialState, action) {
             ...element,
             titleID:
               payload.categoryFieldId === element.titleID
-                ? ""
+                ? setDefaultTitle(
+                    element.categoryFields,
+                    payload.categoryFieldId
+                  )
                 : element.titleID,
             categoryFields: element.categoryFields.filter(
               (subElement) => subElement.categoryID !== payload.categoryFieldId

@@ -46,3 +46,10 @@ export const getTitleName = (item, categoryData) => {
   );
   return extractTitleName?.value.toString();
 };
+
+export const setDefaultTitle = (categoryFields, categoryFieldId) => {
+  const findElement = categoryFields.filter(
+    (subElement) => subElement.categoryID !== categoryFieldId
+  );
+  return findElement[0].categoryID;
+};

@@ -22,7 +22,6 @@ const CategoryForm = ({ categoryFields, categoryID }) => {
   };
 
   const deleteCategoryField = (categoryFieldId) => {
-    debugger;
     if (categoryFields.length === 1) {
       alert("Cannot delete, since atleast one field is required");
     } else {

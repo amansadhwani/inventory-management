@@ -40,7 +40,6 @@ const CategoryItems = () => {
     categorySubItemsID,
     categoryItemID
   ) => {
-    debugger;
     dispatch({
       type: UPDATE_CATEGORY_SUB_ITEM,
       payload: {

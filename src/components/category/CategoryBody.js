@@ -36,19 +36,18 @@ const CategoryBody = ({ item }) => {
           <label htmlFor="title">Title</label>
           <select
             className="form-select mt-1"
+            defaultValue={item.titleID}
             name="titleID"
             onChange={updateCategory}
           >
             {item.categoryFields.map((element, index) => (
-              <>
-                <option
-                  key={index}
-                  value={element.categoryID}
-                  selected={item.titleID === element.categoryID}
-                >
-                  {element.name}
-                </option>
-              </>
+              <option
+                key={index}
+                value={element.categoryID}
+                selected={item.titleID === element.categoryID}
+              >
+                {element.name}
+              </option>
             ))}
           </select>
         </div>
