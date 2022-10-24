@@ -61,7 +61,6 @@ export default function (state = initialState, action) {
 
     case ADD_NEW_CATEGORY_FIELD: {
       const categoryFieldData = createNewCategoryField(payload.type);
-
       return {
         ...state,
         category: state.category.map((item) =>
@@ -119,6 +118,10 @@ export default function (state = initialState, action) {
         category: state.category.map((element) => {
           return {
             ...element,
+            titleID:
+              payload.categoryFieldId === element.titleID
+                ? ""
+                : element.titleID,
             categoryFields: element.categoryFields.filter(
               (subElement) => subElement.categoryID !== payload.categoryFieldId
             ),

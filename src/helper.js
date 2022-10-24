@@ -20,10 +20,10 @@ export const createNewCategory = () => {
   const newCategory = {
     id,
     categoryName: "New Category",
-    titleID: "",
     categoryFields: [createNewCategoryField()],
     categoryItems: [],
   };
+  newCategory.titleID = newCategory.categoryFields[0].categoryID;
   return newCategory;
 };
 

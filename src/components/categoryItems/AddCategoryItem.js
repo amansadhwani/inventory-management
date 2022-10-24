@@ -7,7 +7,7 @@ const AddCategoryItem = ({ addNewCategoryItem }) => {
       type="button"
       onClick={addNewCategoryItem}
       name="Add Item"
-      className="btn btn-primary"
+      className="btn btn-primary align-element-left"
     />
   );
 };

@@ -57,4 +57,12 @@
   background: none;
 }
 
+.category-label-btn{
+  display: flex;
+  align-items: center;
+}
+
+.align-element-left{
+  margin-left: auto;
+}
 

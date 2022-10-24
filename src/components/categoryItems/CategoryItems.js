@@ -64,12 +64,14 @@ const CategoryItems = () => {
   return (
     <>
       <div className="container-fluid mt-3">
-        <Title categoryName={categoryData?.categoryName} />
-        <AddCategoryItem addNewCategoryItem={addNewCategoryItem} />
         <div className="container mt-5">
+          <div className="category-label-btn">
+            <Title categoryName={categoryData?.categoryName} />
+            <AddCategoryItem addNewCategoryItem={addNewCategoryItem} />
+          </div>
           <div className="row">
             {categoryData?.categoryItems?.map((item) => (
-              <div className="col-12 col-md-4" key={item.categoryItemID}>
+              <div className="col-12 col-md-4 mb-3" key={item.categoryItemID}>
                 <div className="card">
                   <CategoryFieldsHeader
                     id={item.id}

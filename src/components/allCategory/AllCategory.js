@@ -49,16 +49,21 @@ const AllCategory = () => {
       {category.map((element) => {
         return (
           <div key={element.id}>
-            <Title categoryName={element.categoryName} />
-            <AddCategoryItem
-              addNewCategoryItem={() =>
-                addNewCategoryItem(element.id, element.categoryFields)
-              }
-            />
             <div className="container mt-5">
+              <div className="category-label-btn">
+                <Title categoryName={element.categoryName} />
+                <AddCategoryItem
+                  addNewCategoryItem={() =>
+                    addNewCategoryItem(element.id, element.categoryFields)
+                  }
+                />
+              </div>
               <div className="row">
                 {element?.categoryItems?.map((item) => (
-                  <div className="col-12 col-md-4" key={item.categoryItemID}>
+                  <div
+                    className="col-12 col-md-4 mb-3"
+                    key={item.categoryItemID}
+                  >
                     <div className="card">
                       <CategoryFieldsHeader
                         id={item.id}
