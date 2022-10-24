@@ -22,10 +22,15 @@ const CategoryForm = ({ categoryFields, categoryID }) => {
   };
 
   const deleteCategoryField = (categoryFieldId) => {
-    dispatch({
-      type: DELETE_CATEGORY_FIELD,
-      payload: { categoryFieldId },
-    });
+    debugger;
+    if (categoryFields.length === 1) {
+      alert("Cannot delete, since atleast one field is required");
+    } else {
+      dispatch({
+        type: DELETE_CATEGORY_FIELD,
+        payload: { categoryFieldId },
+      });
+    }
   };
   return (
     <>

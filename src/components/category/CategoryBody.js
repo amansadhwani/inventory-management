@@ -25,7 +25,7 @@ const CategoryBody = ({ item }) => {
           <label htmlFor="categoryName">Category Name</label>
           <Input
             type="text"
-            className="form-control"
+            className="form-control mt-1"
             placeholder="Enter category name"
             value={item.categoryName}
             onChange={updateCategory}
@@ -35,7 +35,7 @@ const CategoryBody = ({ item }) => {
         <div className="mb-3">
           <label htmlFor="title">Title</label>
           <select
-            className="form-select mt-3"
+            className="form-select mt-1"
             name="titleID"
             onChange={updateCategory}
           >

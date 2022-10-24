@@ -40,6 +40,7 @@ const CategoryItems = () => {
     categorySubItemsID,
     categoryItemID
   ) => {
+    debugger;
     dispatch({
       type: UPDATE_CATEGORY_SUB_ITEM,
       payload: {
@@ -72,7 +73,7 @@ const CategoryItems = () => {
           <div className="row">
             {categoryData?.categoryItems?.map((item) => (
               <div className="col-12 col-md-4 mb-3" key={item.categoryItemID}>
-                <div className="card">
+                <div className="card ">
                   <CategoryFieldsHeader
                     id={item.id}
                     titleName={getTitleName(item, categoryData)}

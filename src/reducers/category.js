@@ -67,6 +67,10 @@ export default function (state = initialState, action) {
           item.id === payload.categoryID
             ? {
                 ...item,
+                titleID:
+                  item.categoryFields.length === 0
+                    ? categoryFieldData.categoryID
+                    : item.titleID,
                 categoryFields: [...item.categoryFields, categoryFieldData],
                 categoryItems: item.categoryItems.map((catItem) => {
                   return {

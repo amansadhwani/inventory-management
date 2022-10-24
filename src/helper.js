@@ -44,5 +44,5 @@ export const getTitleName = (item, categoryData) => {
   const extractTitleName = item.categorySubItems.find(
     (element) => element.categoryLinkID === categoryData.titleID
   );
-  return extractTitleName?.value;
+  return extractTitleName?.value.toString();
 };
