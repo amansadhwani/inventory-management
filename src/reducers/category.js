@@ -61,6 +61,7 @@ export default function (state = initialState, action) {
 
     case ADD_NEW_CATEGORY_FIELD: {
       const categoryFieldData = createNewCategoryField(payload.type);
+
       return {
         ...state,
         category: state.category.map((item) =>
@@ -137,6 +138,7 @@ export default function (state = initialState, action) {
 
     case ADD_NEW_CATEGORY_ITEM: {
       const categoryFieldData = createCategoryItemsData(payload.categoryFields);
+
       return {
         ...state,
         category: state.category.map((item) =>

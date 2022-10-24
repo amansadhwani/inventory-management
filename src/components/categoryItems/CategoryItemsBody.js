@@ -5,6 +5,7 @@ const CategoryItemsBody = ({
   categorySubItems,
   categoryItemID,
   updateCategorySubItems,
+  id,
 }) => {
   return (
     <div className="card-body">
@@ -13,7 +14,6 @@ const CategoryItemsBody = ({
           <div className="mb-3 mt-3" key={subItem.categorySubItemsID}>
             <label htmlFor={subItem.name}>{subItem.name}</label>
             <Input
-              //defaultChecked={subItem.value}
               type={subItem.type}
               className={subItem.type !== "checkbox" ? "form-control" : ""}
               placeholder={`Enter ${subItem.name}`}
@@ -23,7 +23,8 @@ const CategoryItemsBody = ({
                   e,
                   subItem.type,
                   subItem.categorySubItemsID,
-                  categoryItemID
+                  categoryItemID,
+                  id
                 )
               }
               name={"value"}

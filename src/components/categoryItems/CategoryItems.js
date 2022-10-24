@@ -12,6 +12,7 @@ import {
   UPDATE_CATEGORY_SUB_ITEM,
 } from "../../actions/types";
 import { getTitleName } from "../../helper";
+import { Title } from "../common/Title";
 
 const CategoryItems = () => {
   const dispatch = useDispatch();
@@ -39,16 +40,15 @@ const CategoryItems = () => {
     categorySubItemsID,
     categoryItemID
   ) => {
-    const prepData = {
-      id,
-      categorySubItemsID,
-      categoryItemID,
-      [e.target.name]: type !== "checkbox" ? e.target.value : e.target.checked,
-    };
-
     dispatch({
       type: UPDATE_CATEGORY_SUB_ITEM,
-      payload: prepData,
+      payload: {
+        id,
+        categorySubItemsID,
+        categoryItemID,
+        [e.target.name]:
+          type !== "checkbox" ? e.target.value : e.target.checked,
+      },
     });
   };
 
@@ -63,8 +63,8 @@ const CategoryItems = () => {
 
   return (
     <>
-      <h1>{categoryData?.categoryName}</h1>
       <div className="container-fluid mt-3">
+        <Title categoryName={categoryData?.categoryName} />
         <AddCategoryItem addNewCategoryItem={addNewCategoryItem} />
         <div className="container mt-5">
           <div className="row">
